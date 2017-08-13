@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $allowed_domains = array('www.victr.local','victr.webdropstudio.com');
-$default_domain  = 'victr.webdropstudio.com';
+$default_domain  = 'www.victr.local';
 
 if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE))
 {
@@ -37,14 +37,13 @@ else
 
 if ( ! empty($_SERVER['HTTPS']))
 {
-        $config['base_url'] = 'https://'.$domain;
+        $config['base_url'] = 'http://'.$domain;
 }
 else
 {
-        $config['base_url'] = 'https://'.$domain;
+        $config['base_url'] = 'http://'.$domain;
 }
 
-$GLOBALS['cookie_domain'] = '.webdropstudio.com';
 $config['cron_auth'] = 'Juw372Vk72';
 
 /*
@@ -136,7 +135,7 @@ $config['enable_hooks'] = FALSE;
 | https://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'VI_';
+$config['subclass_prefix'] = 'VR_';
 
 /*
 |--------------------------------------------------------------------------
