@@ -24,7 +24,7 @@
 					<?php foreach($repo_list as $repo){ ?>
 						<tr>
 							<td><a href='<?= $repo['html_url'] ?>' target='_blank'><?= $repo['name'] ?></a></td>
-							<td class="center"><?= $repo['stargazers_count'] ?></td>							
+							<td class="text-right"><?= $repo['stargazers_count'] ?></td>							
 							<td><?= $repo['description'] ?></td>
 							<td nowrap><?= $repo['created_at'] ?></td>
 							<td nowrap><?= $repo['updated_at'] ?></td>
