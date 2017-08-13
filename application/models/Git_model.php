@@ -50,7 +50,7 @@ class Git_model extends VR_Model {
 	 * In our case, it will save you from the need to implement complex logics with different combinations of 
 	 * select(), update(), delete() and insert() calls.
 	 *
-	 * @param object $params
+	 * @param stdClass Object $repo_obj
 	 *
 	 * @return boolean
 	 */
@@ -60,7 +60,7 @@ class Git_model extends VR_Model {
     	if( empty($repository_id) ){
     		return false;
     	}
-    	print_R($repo_obj);
+
     	$data = array(
     		"repository_id"=>$repository_id,
     		"name"=>$repo_obj->name, 
@@ -81,7 +81,6 @@ class Git_model extends VR_Model {
 	 */
     public function unstar(){
     	return parent::update(array("stargazers_count"=>0),$this->table);
-    	return true;
     }
     
     /**

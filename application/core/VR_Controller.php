@@ -30,7 +30,6 @@ class VR_Controller extends CI_Controller {
    		
    		if( is_array($http_headers) && count($http_headers) ){
    			curl_setopt($ch, CURLOPT_HTTPHEADER, $http_headers);
-   			//print_R($http_headers);
    		}
    		
    		curl_setopt ($ch, CURLOPT_TIMEOUT, 60);
@@ -42,15 +41,12 @@ class VR_Controller extends CI_Controller {
 	   	$http_code = $curl_info['http_code'];
 
    		curl_close ($ch); 	
-   		//echo $url . "\n";
-   		//print_R($curl_info);
 
    		if (strstr($http_code,"200")){
        		return $output;
    		} else {
 			return false;
-		}   		
-   		
+		}   	   		
     }
     
     public function redirect_it($url){
@@ -66,7 +62,6 @@ class VR_Controller extends CI_Controller {
 	public function valid_url($str) {
     	return (filter_var($str, FILTER_VALIDATE_URL) !== FALSE);
 	}
-
 }
 
 /* End of file VR_Controller.php */ 

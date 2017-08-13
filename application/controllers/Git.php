@@ -80,8 +80,6 @@ class Git extends VR_Controller {
 		$http_headers[] = "User-Agent: Awesome-Octocat-App";
 		$http_headers[] = 'Authorization: token ' . $this->api_access_token;
 		$http_headers[] = "Accept: application/vnd.github.mercy-preview+json";
-		echo "\n";
-		echo $url = "https://api.github.com/search/repositories?page={$page}&q=stars:{$range}+is:{$public_private}+language:{$language}&sort={$sort}&order=desc&per_page=100";
 		
 		$response = parent::curl_it($url,0,'',$http_headers);
 
@@ -107,7 +105,11 @@ class Git extends VR_Controller {
 		$this->stencil->js('datatables-plugins/dataTables.bootstrap.min.js');
 		$this->stencil->js('datatables-responsive/dataTables.responsive.js');
 		
-		$this->stencil->paint('repos/git_starred');
+		$data = [];
+		$data['repo_list'] = $this->Git_model->getAll(0,$this->Git_model->table,'stargazers_count DESC');
+		$data['repo_list_count'] = count($data['repo_list']);
+		
+		$this->stencil->paint('repos/git_starred',$data);
 	}	
 	
 }
