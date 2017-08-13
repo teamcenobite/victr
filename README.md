@@ -3,7 +3,7 @@
 ## About
 
 This is a quick little demo for code evaluation purposes.  Two main tasks:
-1. Using the Git API, grab the most starred PHP public repositories, and save them to MySQL database.
+1. Using the Git API, grab the most starred PHP public repositories, and save them to MySQL database.  Must be able to update the list/records too.
 2. Display the list of repositories, providing the requested details and a link to the repository on Github.
 
 
@@ -15,7 +15,9 @@ This is a quick little demo for code evaluation purposes.  Two main tasks:
 
 ## Notes
 
-Due to the maximum returned search result limits of 1000, I decided to just captured the top 1000 starred repositories.  After a handful of attempts, I could not find a way to bypass this, and so therefore no viable way to get an accurate list of the entire Git directory.  
+Due to the maximum returned search result limits of 1000, I decided to just capture the top 1000 starred repositories.  
+After a handful of attempts, I could not find a way to bypass this, and therefore no viable way to get an accurate list of the entire Git directory.  
+For example, there are 8736 repositories with 5 stars and search api only returns 1000 of them. So even by searching for repositories based on single digit star counts (ie, all repos with 5 stars, and all with 4 stars, and all with 3 stars), there was no way to get them all.
 
 Notes on Code:
 1. Used Twitter Bootstrap framework for front end styling
