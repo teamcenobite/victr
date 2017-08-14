@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Git extends VR_Controller {
 
-	private $api_access_token = '92a3ec4efe4fb2a63b7c0381cbcad21f6995bf52';	
+	private $api_access_token = '';	
 
 	/**
 	 * Class constructor
@@ -29,39 +29,62 @@ class Git extends VR_Controller {
 	 *
 	 * @return void
 	 */
-	public function search_starred(){
-		$per_hour = 30;
-		$interval = ((60 / $per_hour) * 60) + 1; // in seconds
+	public function search_starred($do_update=0){
+		$data = [];
 		
-		$ranges = [];
-		$ranges[] = ">=100"; // since only 1000 results returned, this will only return the top 1000		
+		if(!empty($do_update)){		
+			$per_hour = 30;
+			$interval = ((60 / $per_hour) * 60) + 1; // in seconds
 		
-		// remove stars from all records
-		$this->Git_model->unstar();
-		foreach($ranges as $rg){
-			$repos = 1;
-			$page = 1;
-			while ($repos && $page < 11) {
-    			$result = $this->_do_repo_search($page,$rg);
-    			$page++;
-    			if($result){
-    				$repos = count($result->items);
-    				if( $repos ){
-    					foreach($result->items as $item){
-    						$this->Git_model->update_repository($item);
+			$ranges = [];
+			$ranges[] = ">=100"; // since only 1000 results returned, this will only return the top 1000		
+		
+			// remove stars from all records
+			$this->Git_model->unstar();
+			foreach($ranges as $rg){
+				$repos = 1;
+				$page = 1;
+				while ($repos && $page < 11) {
+    				$result = $this->_do_repo_search($page,$rg);
+    				$page++;
+    			
+    				if( !empty($result->error_message) ){
+    					$this->errors[] = $result->error_message;
+    					break;
+    				} else if($result){
+    					$repos = count($result->items);
+    					if( $repos ){
+    						foreach($result->items as $item){
+    							$this->Git_model->update_repository($item);
+    						}
+    					} else {
+    						break;
     					}
     				} else {
+    					$this->errors[] = "Unspecified Error";
     					break;
-    				}
-    			} else {
-    				break;
-    			}    	
-    			//sleep($interval); // keeps it from hitting abuse limit    			
-			} 
-		}		
+    				}    	
+    				//sleep($interval); // keeps it from hitting abuse limit    			
+				} 
+			}		
+		
+			if( $page != '11' ){
+				$this->errors[] = "Only received data from " . ($pages - 1) . " searches...should have been 10.";
+			}		
 
-		// remove any that have no stars
-		$this->Git_model->remove_unstarred();
+			// remove any that have no stars
+			$this->Git_model->remove_unstarred();
+		
+			if( count($this->errors) ){
+				// notify of error(s)
+				$data['messages']['errors'] = $this->errors;
+			} else {
+				// notify of success
+				$data['messages']['success_message'] = "The listing of Git repositories has been updated.";
+			}
+		}		
+		$this->stencil->paint('repos/update_starred',$data);
+		
 	} 
 	
 	/**
@@ -78,16 +101,26 @@ class Git extends VR_Controller {
 	protected function _do_repo_search($page=1,$range='>=500',$language='php',$sort='stars',$public_private='public'){
 		$http_headers = [];
 		$http_headers[] = "User-Agent: Awesome-Octocat-App";
-		$http_headers[] = 'Authorization: token ' . $this->api_access_token;
+		if( !empty($this->api_access_token) ){
+			$http_headers[] = 'Authorization: token ' . $this->api_access_token;
+		}		
 		$http_headers[] = "Accept: application/vnd.github.mercy-preview+json";
 		
+		$url = "https://api.github.com/search/repositories?page={$page}&q=stars:{$range}+is:{$public_private}+language:{$language}&sort={$sort}&order=desc&per_page=100";
+		
 		$response = parent::curl_it($url,0,'',$http_headers);
+		
+		$result_code = $response['result_code'];
+		$output = $response['output'];	
 
-		if($response){
-			$results = json_decode($response);
+		if($result_code == '200'){
+			$results = json_decode($output);
 			return $results;
 		} else {
-			return false;
+			$results = json_decode($output);
+			$results->error_message = $results->message;
+			$results->error_url = $url;
+			return $results;
 		}
 	}
 	

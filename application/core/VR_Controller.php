@@ -40,12 +40,14 @@ class VR_Controller extends CI_Controller {
    		$curl_info = curl_getinfo($ch);   		
 	   	$http_code = $curl_info['http_code'];
 
-   		curl_close ($ch); 	
+   		curl_close ($ch);
+   		
+   		return array("result_code"=>$http_code,"output"=>$output); 	
 
    		if (strstr($http_code,"200")){
-       		return $output;
+       		
    		} else {
-			return false;
+			return array($http_code=>$output);
 		}   	   		
     }
     

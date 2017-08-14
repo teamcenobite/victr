@@ -11,7 +11,7 @@
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#">Contact</a>
+					<a href="/update/">Update</a>
 				</li>            
 			</ul>
 		</div>

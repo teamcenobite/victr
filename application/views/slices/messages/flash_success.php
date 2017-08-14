@@ -1,0 +1,1 @@
+<div class='alert alert-success'><?php echo $this->session->flashdata('flash_success'); ?></div>

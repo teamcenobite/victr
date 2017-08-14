@@ -1,0 +1,1 @@
+<div class='alert alert-success'><?php echo $messages['success_message']; ?></div>

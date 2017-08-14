@@ -6,6 +6,8 @@ This is a quick little demo for code evaluation purposes.  Two main tasks:
 1. Using the Git API, grab the most starred PHP public repositories, and save them to MySQL database.  Must be able to update the list/records too.
 2. Display the list of repositories, providing the requested details and a link to the repository on Github.
 
+Visit DOMAIN home page to view list of repositories.
+Visit DOMAIN/update to run the pull and update the list of repositories 
 
 ## Compatibility
 

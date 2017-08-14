@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'git';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['update'] = "git/search_starred";
+$route['update/(:any)'] = "git/search_starred/1";

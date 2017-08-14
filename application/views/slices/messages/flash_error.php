@@ -1,0 +1,1 @@
+<div class='alert alert-danger'><?php echo $this->session->flashdata('flash_error'); ?></div>

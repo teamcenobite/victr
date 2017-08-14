@@ -1,0 +1,1 @@
+<div class='alert alert-warning'><?php echo $messages['warning_message']; ?></div>
