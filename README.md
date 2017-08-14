@@ -1,4 +1,4 @@
-# victr assesment demo
+# Victr Assesment Demo
 
 ## About
 
@@ -27,14 +27,12 @@ Notes on Code:
 3. Used simple templating structure with the Stencil library.
 4. Used custom core model and controller for shared custom code between all models and controllers.
 5. Used database mode for Codeigniter sessions for compatibility
-
+6. To install on your server, you'll need to enter your database info in the 'Production' database file, and run the sql code below
 
 ## SQL
 
 -- Server version: 5.6.36
 -- PHP Version: 5.6.30
--- Database: `victr`
---
 --
 -- Table structure for table `ci_sessions`
 

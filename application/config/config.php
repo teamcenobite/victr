@@ -23,28 +23,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$allowed_domains = array('www.victr.local','victr.webdropstudio.com');
-$default_domain  = 'www.victr.local';
-
-if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE))
-{
-        $domain = $_SERVER['HTTP_HOST'];
-}
-else
-{
-        $domain = $default_domain;
-}
-
 if ( ! empty($_SERVER['HTTPS']))
 {
-        $config['base_url'] = 'http://'.$domain;
+        $config['base_url'] = 'https://'.$_SERVER['HTTP_HOST'];
 }
 else
 {
-        $config['base_url'] = 'http://'.$domain;
+        $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'];
 }
 
-$config['cron_auth'] = 'Juw372Vk72';
+$config['cron_auth'] = 'Juw372Vk72472y';
 
 /*
 |--------------------------------------------------------------------------

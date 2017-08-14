@@ -8,8 +8,11 @@
 				<span class="icon-bar"></span>
 			</button>
 		</div>
-		<div class="navbar-collapse collapse" id="navbar-main">
+		<div class="navbar-collapse collapse" id="navbar-main">			
 			<ul class="nav navbar-nav">
+				<li>
+					<a href="/">View Listing</a>
+				</li>
 				<li>
 					<a href="/update/">Update</a>
 				</li>            
